@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from IPython.core.display import clear_output
 from warnings import warn
 warn("Warning Simulation")
-import pandas as pd
+
 import matplotlib.pyplot as plt
 from time import sleep
 from random import randint
@@ -18,13 +18,19 @@ from time import time
 
 # After identifying the parameters we will used to do my research I define the following function  to get the url needed
 # The first parameter is the page number and the second one ins RAM size.
-
 def URL(s,t):
     url = 'https://www.bestbuy.ca/en-ca/category/laptops-macbooks/20352.aspx?type=product&page='+s+'&filter=category%253aComputers%2B%2526%2BTablets%253bcategory%253aLaptops%2B%2526%2BMacBooks%253bcustom0ramsize%253a8'+ t    
-   return url 
+    return url
+# Here I define Rating function to collect rating
+def Rating(c):
+    c = c.find('div', class_="rating-stars-yellow")
+    c = c['style']
+    c = c.split()[1]
+    c = float(c[:-2])
+    return c
 # I select the following list of pages and the RAM size list.
 pages = [str(i) for i in range(1,20)]
-Ram_url = ['2', '4',  '8', '12', '16','32', '64']
+Ram_url = ['2', '4',  '8', '12', '16','32', '64']   
 
 # Redeclaring the lists to store data in
 names = []
@@ -91,7 +97,8 @@ for t in Ram_url:
                 # Scrape the number of votes
                 vote = container.find('div', class_="rating-num").text
                 votes.append(vote)
-
+sleep(3)
+import pandas as pd
 # I construct the dataframe of my data with pandas
 laptops_rating = pd.DataFrame({'laptops': names,
                        'prices': prices,
@@ -103,16 +110,17 @@ print(laptops_rating.info())
 
 # Save the dataframe in csv.
 laptops_rating.to_csv('laptops_rating2019.csv')
-
+# Read file data with pandas
+df = pd.read_csv('laptops_rating2019.csv')
 # I define the following function to clean the price column.
-def price(x):
+def Price(x):
     if ',' in x:
         x = x.replace(',','')
         return float(x[1:])
     else:
         return float(x[1:])
 # Clean the prices column
-df['prices'] = [prix(x) for x in df['prices']]
+df['prices'] = [Price(x) for x in df['prices']]
 
 # The following function is to clean votes column
 def Remove_parenthese(x):
