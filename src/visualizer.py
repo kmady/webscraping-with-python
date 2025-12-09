@@ -3,6 +3,7 @@ Data visualization module for laptop data analysis.
 """
 
 import matplotlib.pyplot as plt
+from loguru import logger
 
 
 def create_histograms(df):
@@ -49,9 +50,9 @@ def visualize_data(df):
     Args:
         df (pd.DataFrame): Dataframe containing the data
     """
-    print('#' * 100)
-    print('Descriptive statistic measures of the data')
-    print(df[['prices', 'ratings', 'votes']].describe())
+    logger.info('=' * 100)
+    logger.info('Descriptive statistic measures of the data')
+    logger.info(f"\n{df[['prices', 'ratings', 'votes']].describe()}")
     
     create_histograms(df)
     create_boxplots(df)

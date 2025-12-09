@@ -108,6 +108,7 @@ $RECYCLE.BIN/
 *.log
 logs/
 *.log.*
+*.log.zip
 
 # Temporary files
 *.tmp
