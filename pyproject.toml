@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "webscraping-with-python"
+version = "1.0.0"
+description = "Web scraping tool for extracting laptop data from BestBuy website"
+authors = ["Demdah"]
+readme = "README.md"
+packages = [{include = "*.py"}]
+
+[tool.poetry.dependencies]
+python = ">=3.8.1,<4.0"
+requests = "^2.31.0"
+beautifulsoup4 = "^4.12.0"
+pandas = "^2.0.0"
+matplotlib = "^3.7.0"
+seaborn = "^0.13.0"
+ipython = "^8.12.0"
+loguru = "^0.7.0"
+selenium = "^4.16.0"
+webdriver-manager = "^4.0.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+black = "^23.7.0"
+flake8 = "^6.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
